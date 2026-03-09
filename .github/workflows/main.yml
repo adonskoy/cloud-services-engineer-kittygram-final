@@ -60,7 +60,7 @@ jobs:
           POSTGRES_PASSWORD: kittygram_password
           DB_HOST: localhost
           DB_PORT: 5432
-        run: pytest
+        run: python manage.py test
 
   frontend_tests:
     runs-on: ubuntu-latest
