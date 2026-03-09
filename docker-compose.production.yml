@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-kittygram_password}
 
   backend:
-    image: ${DOCKERHUB_USERNAME:-username}/kittygram_backend:latest
+    image: adonskoyd/kittygram_backend:latest
     platform: linux/amd64
     env_file: .env
     volumes:
@@ -31,7 +31,7 @@ services:
              gunicorn --bind 0.0.0.0:8000 kittygram_backend.wsgi:application"
 
   frontend:
-    image: ${DOCKERHUB_USERNAME:-username}/kittygram_frontend:latest
+    image: adonskoyd/kittygram_frontend:latest
     platform: linux/amd64
     volumes:
       - static_volume:/app/static_dist
@@ -42,7 +42,7 @@ services:
       - backend
 
   nginx:
-    image: ${DOCKERHUB_USERNAME:-username}/kittygram_gateway:latest
+    image: adonskoyd/kittygram_gateway:latest
     platform: linux/amd64
     ports:
       - "80:80"
