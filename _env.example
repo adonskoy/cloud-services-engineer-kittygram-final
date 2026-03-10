@@ -1,3 +1,4 @@
+SECRET_KEY=your-secret-key-here
 POSTGRES_DB=kittygram
 POSTGRES_USER=kittygram_user
 POSTGRES_PASSWORD=kittygram_password
