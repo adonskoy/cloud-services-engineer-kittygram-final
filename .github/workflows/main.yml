@@ -141,4 +141,4 @@ jobs:
         run: |
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -d text="✅ Kittygram deployed successfully!"
+            -d text="✅ Kittygram deployed successfully!\nPushed by: ${{ github.actor }}\nCommit message: ${{ github.event.head_commit.message }}\nCommit URL: ${{ github.event.head_commit.url }}"
