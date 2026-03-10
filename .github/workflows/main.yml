@@ -138,7 +138,15 @@ jobs:
     if: success()
     steps:
       - name: Send Telegram notification
+        env:
+          BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ACTOR: ${{ github.actor }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+          COMMIT_URL: ${{ github.event.head_commit.url }}
         run: |
-          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -d text="✅ Kittygram deployed successfully!\nPushed by: ${{ github.actor }}\nCommit message: ${{ github.event.head_commit.message }}\nCommit URL: ${{ github.event.head_commit.url }}"
+          TEXT=$(printf '✅ Kittygram deployed successfully!\nPushed by: %s\nCommit message: %s\nCommit URL: %s' \
+            "$ACTOR" "$COMMIT_MSG" "$COMMIT_URL")
+          curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
+            -d "chat_id=${CHAT_ID}" \
+            --data-urlencode "text=${TEXT}"
