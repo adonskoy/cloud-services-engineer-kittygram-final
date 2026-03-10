@@ -26,10 +26,6 @@ services:
       DB_PORT: "5432"
     depends_on:
       - db
-    command: >
-      sh -c "cp -r /app/collected_static/. /app/static_volume/ &&
-             python manage.py migrate &&
-             gunicorn --bind 0.0.0.0:8000 kittygram_backend.wsgi:application"
 
   frontend:
     build: ./frontend
